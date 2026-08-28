@@ -1,6 +1,7 @@
 import { db } from "@/db/database";
 import type { GameResult } from "@/types";
 import { syncService } from "@/services/syncService";
+import { api } from "@/services/api/client";
 
 export async function saveGameResult(result: GameResult): Promise<GameResult> {
   const stored: GameResult = { ...result, synced: false };
@@ -18,6 +19,15 @@ export async function saveGameResult(result: GameResult): Promise<GameResult> {
 }
 
 export async function listGameResults(patientId: string, limit = 20): Promise<GameResult[]> {
+  try {
+    const res = await api.get<GameResult[]>(`/patients/${patientId}/game-results`, { limit });
+    if (res.ok && res.data) {
+      return res.data;
+    }
+  } catch (e) {
+    console.error("Failed to fetch game results from API", e);
+  }
+
   const rows = await db.gameResults.where("patientId").equals(patientId).toArray();
   return rows
     .sort((a, b) => b.timestamp.localeCompare(a.timestamp))
@@ -29,6 +39,15 @@ export async function listGameResultsForGame(
   gameId: GameResult["gameId"],
   limit = 5,
 ): Promise<GameResult[]> {
+  try {
+    const res = await api.get<GameResult[]>(`/patients/${patientId}/game-results`, { limit, gameId });
+    if (res.ok && res.data) {
+      return res.data;
+    }
+  } catch (e) {
+    console.error("Failed to fetch game results from API", e);
+  }
+
   const rows = await db.gameResults
     .where("patientId")
     .equals(patientId)

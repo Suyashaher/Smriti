@@ -1,47 +1,12 @@
-# Secrets
+node_modules/
+dist/
 .env
-.env.local
-.env.*.local
-!.env.example
-
-# Frontend
-frontend/node_modules/
-frontend/dist/
-frontend/dev-dist/
-frontend/.vite/
-*.local
-
-# Python
 __pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-backend/.venv/
-backend/venv/
-venv/
-.venv/
+*.pyc
+.vite/
 *.egg-info/
 .pytest_cache/
-.mypy_cache/
-.ruff_cache/
-htmlcov/
-.coverage
-coverage.xml
-
-# OS / IDE
-.DS_Store
-Thumbs.db
-Desktop.ini
-.idea/
-.vscode/
-*.swp
-*.swo
-
-# Logs
-*.log
-npm-debug.log*
-
-# Mongo / Docker volumes (if created locally)
-data/db/
-mongo-data/
+uploads/
+seed_data/
+sw.js
+workbox-*.js

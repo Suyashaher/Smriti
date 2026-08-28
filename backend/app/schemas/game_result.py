@@ -5,7 +5,7 @@ from .common import UTCBaseModel
 class GameResultCreate(BaseModel):
     id: str
     patientId: str
-    gameId: Literal["memory_cards", "object_recognition", "pattern_recognition", "daily_routine_recall", "attention"]
+    gameId: Literal["memory_cards", "object_recognition", "pattern_recognition", "daily_routine_recall", "attention", "story_memory", "family_bonding"]
     score: float = Field(ge=0)
     accuracy: float = Field(ge=0, le=1)
     responseTime: float = Field(ge=0)
