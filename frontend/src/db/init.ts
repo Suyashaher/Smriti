@@ -10,8 +10,18 @@ function createDeviceId(): string {
 export async function initDatabase(
   preferredLanguage: LocaleCode = "en",
 ): Promise<DeviceMeta> {
-  await db.open();
-
+  try {
+    await db.open();
+  } catch (error: any) {
+    console.error("Dexie open failed:", error);
+    if (error.name === 'UnknownError' || error.name === 'DatabaseClosedError') {
+      console.warn("Attempting to delete and recreate corrupted database...");
+      await db.delete();
+      await db.open();
+    } else {
+      throw error;
+    }
+  }
   let device = await db.meta.get("device");
   if (!device) {
     device = {
