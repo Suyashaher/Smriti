@@ -1,7 +1,7 @@
 from pydantic_settings import BaseSettings
 
 class Settings(BaseSettings):
-    mongodb_uri: str = "mongodb+srv://suyashaher99_db_user:wypyJh9E3caCMtj8@cluster0.kbzdrbx.mongodb.net/eldercare_ai?appName=Cluster0"
+    mongodb_uri: str = "mongodb://localhost:27017"
     mongodb_database: str = "eldercare_ai"
     cors_origins: str = "http://localhost:5173"
     api_host: str = "127.0.0.1"
