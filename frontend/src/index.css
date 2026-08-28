@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Segoe UI", system-ui, sans-serif;
+  --color-elder-bg: #f4f1e8;
+  --color-elder-surface: #fffdf8;
+  --color-elder-ink: #1a2a3a;
+  --color-elder-muted: #3d4f5f;
+  --color-elder-primary: #1b6b5a;
+  --color-elder-primary-ink: #ffffff;
+  --color-elder-accent: #c45c26;
+  --color-elder-good: #2d6a4f;
+  --color-elder-warn: #9a6b12;
+  --color-care-bg: #eef2f1;
+  --color-care-ink: #1c2833;
+  --spacing-touch: 4.5rem;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-elder-bg);
+  color: var(--color-elder-ink);
+  font-family: var(--font-sans);
+  font-size: 1.25rem;
+  line-height: 1.45;
+}
+
+button {
+  font-family: inherit;
+}
+
+:focus-visible {
+  outline: 4px solid var(--color-elder-accent);
+  outline-offset: 3px;
+}

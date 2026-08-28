@@ -1,0 +1,18 @@
+# Optional local MongoDB only. The app must run without Docker
+# (native mongod on localhost:27017 is equally valid).
+#
+#   docker compose up -d
+#
+# Do not use this file to require a cloud database.
+
+services:
+  mongodb:
+    image: mongo:7
+    ports:
+      - "27017:27017"
+    volumes:
+      - smriti_mongo_data:/data/db
+    command: ["mongod", "--bind_ip_all"]
+
+volumes:
+  smriti_mongo_data:
