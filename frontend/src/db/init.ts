@@ -14,10 +14,22 @@ export async function initDatabase(
     await db.open();
   } catch (error: any) {
     console.error("Dexie open failed:", error);
-    if (error.name === 'UnknownError' || error.name === 'DatabaseClosedError') {
+    // Dexie sometimes wraps errors or uses different names
+    const errorName = error?.name || error?.inner?.name || "";
+    if (
+      errorName.includes('UnknownError') || 
+      errorName.includes('DatabaseClosedError') || 
+      errorName.includes('VersionError') ||
+      String(error).includes('UnknownError')
+    ) {
       console.warn("Attempting to delete and recreate corrupted database...");
-      await db.delete();
-      await db.open();
+      try {
+        await db.delete();
+        await db.open();
+      } catch (retryError) {
+        console.error("Dexie delete/reopen failed:", retryError);
+        throw retryError;
+      }
     } else {
       throw error;
     }
